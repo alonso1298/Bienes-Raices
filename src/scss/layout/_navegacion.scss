@@ -1,0 +1,39 @@
+.barra {
+    display: flex;
+    flex-direction: column;
+    padding-top: 3rem;
+    @include tablet {
+        flex-direction: row;
+        justify-content: space-between;
+        .logo-header { // Esta clase ayuda que el logo sea visible en todos los navegadores
+            max-width: 100%;
+            width: 28rem;
+            height: auto;
+        }
+    }
+}
+
+.navegacion {
+
+    @include tablet{
+        display: flex;
+        align-items: center;
+    }
+
+    a {
+        color: $blanco;
+        text-decoration: none;
+        font-size: 2.2rem;
+        display: block;
+        text-align: center;
+
+        @include tablet {
+            margin-right: 2rem;
+            font-size: 1.8rem;
+
+            &:last-of-type { //Esto nos dice que es del ultimo elemento
+                margin-right: 0;
+            }
+        }
+    }
+}
