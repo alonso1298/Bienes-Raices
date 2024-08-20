@@ -1,9 +1,11 @@
+@use 'sass:math'; //Importamos el modulo de matematicas de sass
+
 .footer {
-    padding: $separacion / 2;
+    padding: math.div($separacion, 2); //para dividir usamos math.div en vez de padding: $separacion / 2;
     background-color: $grisOscuro;
 
     .contenido-footer{
-        padding: $separacion / 2;
+        padding: math.div($separacion, 2);
     }
 
     .copyright{
