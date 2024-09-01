@@ -3,6 +3,7 @@
 .footer {
     padding: math.div($separacion, 2); //para dividir usamos math.div en vez de padding: $separacion / 2;
     background-color: $grisOscuro;
+    margin-bottom: 0;
 
     .contenido-footer{
         padding: math.div($separacion, 2);
