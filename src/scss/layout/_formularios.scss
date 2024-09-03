@@ -1,0 +1,23 @@
+.formulario {
+    p{
+        font-size: 1.4rem;
+        color: $grisOscuro;
+    }
+
+    legend {
+        font-size: 2rem;
+        color: $grisOscuro;
+    }
+
+    label {
+        font-weight: $bold;
+        text-transform: uppercase;
+        display: block;
+    }
+    input:not([type="submit"]) { //Selecciona todos excepto el tipo que le pases
+        padding: 5rem;
+    }
+    // input[type="text"] { // Para selecionar por atributo es con []
+    //     padding: 5rem;
+    // }
+}
