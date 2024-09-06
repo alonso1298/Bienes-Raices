@@ -6,6 +6,25 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 function darkMode() {
+
+    const prefiereDarkMode = window.matchMedia('(prefers-color-scheme: dark)'); //De este modo tenemos las preferencias del ususario en el sistema operativo
+
+    // console.log(prefiereDarkMode.matches);
+
+    if(prefiereDarkMode.matches) {
+        document.body.classList.add('dark-mode')
+    }else{
+        document.body.classList.remove('dark-mode')
+    }
+
+    prefiereDarkMode.addEventListener('change', function() { // Si el usuario cambia en ese momento de tema en el sistema operativo, se podra escuchar y cambiar el tema en tiempo real
+        if(prefiereDarkMode.matches) {
+            document.body.classList.add('dark-mode')
+        }else{
+            document.body.classList.remove('dark-mode')
+        }
+    })
+
     const botonDarkMode = document.querySelector('.dark-mode-boton');
 
     botonDarkMode.addEventListener('click', function () {
