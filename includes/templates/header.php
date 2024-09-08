@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <header class="header inicio">
+    <header class="header <?php echo isset( $inicio ) ? 'inicio' : ''?>"> <!--isset es una funcion de php que nos permite revisar si una variable esta definida, si no lo esta no se imprime ningun warning-->
         <div class="contenedor contenido-header">
             <div class="barra">
                 <a href="/">
@@ -22,15 +22,17 @@
                 <div class="derecha">
                     <img class="dark-mode-boton" src="build/img/dark-mode.svg">
                     <nav class="navegacion">
-                        <a href="nosotros.html">Nosotros</a>
-                        <a href="anuncios.html">Anuncios</a>
-                        <a href="blog.html">Blog</a>
-                        <a href="contacto.html">Contacto</a>
+                        <a href="nosotros.php">Nosotros</a>
+                        <a href="anuncios.php">Anuncios</a>
+                        <a href="blog.php">Blog</a>
+                        <a href="contacto.php">Contacto</a>
                     </nav>
                 </div>
 
             </div> <!--Cierre de la barra-->
 
-            <h1>Venta de Casas y Departamentos Exclusivos de Lujo</h1>
+            <?php if($inicio) { ?>
+                <h1>Venta de Casas y Departamentos Exclusivos de Lujo</h1>
+            <?php } ?>
         </div>
     </header>
