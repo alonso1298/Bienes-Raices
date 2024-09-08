@@ -46,8 +46,4 @@
         </div>
     </section>
 
-    <?php include 'includes/footer.php' ?>
-    
-    <script src="build/js/bundle.min.js"></script>
-</body>
-</html>
+    <?php include 'includes/templates/footer.php' ?>
