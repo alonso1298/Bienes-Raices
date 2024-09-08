@@ -1,6 +1,9 @@
 <?php
+
+    require 'includes/funciones.php'; // Requiere es mas efectivo cuando importamos funciones, codigo, etc.. 
     $inicio = true;
-    include './includes/templates/header.php';
+
+    incluirTemplate('header');
 ?>
 
     <main class="contenedor seccion">
