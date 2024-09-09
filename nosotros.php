@@ -48,5 +48,5 @@
     </section>
 
 <?php
-    incluirTemplate('header'); 
+    incluirTemplate('footer'); 
 ?>

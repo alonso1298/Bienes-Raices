@@ -21,5 +21,5 @@
     </main>
 
 <?php
-    incluirTemplate('header'); 
+    incluirTemplate('footer'); 
 ?>
