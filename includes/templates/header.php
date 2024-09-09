@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <header class="header <?php echo isset( $inicio ) ? 'inicio' : ''?>"> <!--isset es una funcion de php que nos permite revisar si una variable esta definida, si no lo esta no se imprime ningun warning-->
+    <header class="header <?php echo $inicio ? 'inicio' : ''?>" > <!--isset es una funcion de php que nos permite revisar si una variable esta definida, si no lo esta no se imprime ningun warning-->
         <div class="contenedor contenido-header">
             <div class="barra">
                 <a href="/">
