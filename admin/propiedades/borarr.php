@@ -4,9 +4,7 @@
 ?>
 
     <main class="contenedor seccion">
-        <h1>Crear</h1>
-
-        <a href="/admin" class="boton boton-verde">Volver</a>
+        <h1>Borrar</h1>
     </main>
 
 <?php
