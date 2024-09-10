@@ -8,9 +8,9 @@
     // echo '</pre>';
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        echo '<pre>';
-        var_dump($_POST); // Nos permite leer los valores del formulario
-        echo '</pre>';
+        // echo '<pre>';
+        // var_dump($_POST); // Nos permite leer los valores del formulario
+        // echo '</pre>';
 
         $titulo = $_POST['titulo'];
         $precio = $_POST['precio'];
