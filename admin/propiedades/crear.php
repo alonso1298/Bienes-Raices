@@ -4,7 +4,7 @@
 
     $db = conectarDB();
 
-    
+
 
     require '../../includes/funciones.php'; 
     incluirTemplate('header');
@@ -15,7 +15,7 @@
 
         <a href="/admin" class="boton boton-verde">Volver</a>
 
-        <form class="formulario">
+        <form class="formulario" method="">
 
         <fieldset>
             <legend>Información General</legend>
