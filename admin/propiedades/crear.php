@@ -14,6 +14,23 @@
 
         $titulo = $_POST['titulo'];
         $precio = $_POST['precio'];
+        $descripcion = $_POST['descripcion'];
+        $habitaciones = $_POST['habitaciones'];
+        $wc = $_POST['wc'];
+        $estacionamiento = $_POST['estacionamiento'];
+        $vendedores_id = $_POST['vendedores_id'];
+
+        // Insertar en la Base de Datos
+        $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedores_id ) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedores_id' ) ";
+
+        // echo $query;
+
+        $resultado = mysqli_query($db, $query);
+
+        if($resultado) {
+            echo 'Insertado Correctamente';
+        }
+
     }
 
     require '../../includes/funciones.php'; 
@@ -59,7 +76,7 @@
         <fieldset>
             <legend>Vendedor</legend>
 
-            <select name="vendedor">
+            <select name="vendedores_id">
                 <option value="1">Alonso</option>
                 <option value="2">Karen</option>
             </select>
