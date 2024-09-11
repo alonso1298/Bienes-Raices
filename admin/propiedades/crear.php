@@ -3,10 +3,14 @@
     require '../../includes/config/database.php';
     $db = conectarDB();
 
+    // Arreglo con mendajes de errores
+    $errores = [];
+
     // echo '<pre>';
     // var_dump($_SERVER['REQUEST_METHOD']); // Nos permite leer los valores del servidor
     // echo '</pre>';
 
+    // Ejecutar el código después que el usuario envia el formulario 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
         // echo '<pre>';
         // var_dump($_POST); // Nos permite leer los valores del formulario
@@ -19,6 +23,34 @@
         $wc = $_POST['wc'];
         $estacionamiento = $_POST['estacionamiento'];
         $vendedores_id = $_POST['vendedores_id'];
+
+        if(!$titulo) { // !$titulo significa que si no hay titulo o si esta vacío 
+            $errores[] = "Debes añadir un titulo"; // Detecta que $errores es un arreglo y la sintaxias va agregarlo en el arreglo
+        }
+        if(!$precio) { 
+            $errores[] = "Debes añadir un titulo"; 
+        }
+        if(!$descripcion) { 
+            $errores[] = "La descripción es obligatoria"; 
+        }
+        if(!$habitaciones) { 
+            $errores[] = "Debes añadir un titulo"; 
+        }
+        if(!$wc) { 
+            $errores[] = "Debes añadir un titulo"; 
+        }
+        if(!$estacionamiento) { 
+            $errores[] = "Debes añadir un titulo"; 
+        }
+        if(!$vendedores) { 
+            $errores[] = "Debes añadir un titulo"; 
+        }
+
+            echo '<pre>';
+            var_dump($errores);
+            echo '</pre>';
+
+        exit;
 
         // Insertar en la Base de Datos
         $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedores_id ) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedores_id' ) ";
