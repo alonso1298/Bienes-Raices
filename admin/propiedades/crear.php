@@ -28,39 +28,42 @@
             $errores[] = "Debes añadir un titulo"; // Detecta que $errores es un arreglo y la sintaxias va agregarlo en el arreglo
         }
         if(!$precio) { 
-            $errores[] = "Debes añadir un titulo"; 
+            $errores[] = "Debes añadir un precio"; 
         }
-        if(!$descripcion) { 
-            $errores[] = "La descripción es obligatoria"; 
+        if(strlen( $descripcion ) < 50 || strlen( $descripcion ) > 500 ) { // Validamos que la descripción tenga al menos 50 caracteres y maximo 500 caracteres
+            $errores[] = "La descripción es obligatoria y debe tener al menos 50 caracteres";
         }
         if(!$habitaciones) { 
-            $errores[] = "Debes añadir un titulo"; 
+            $errores[] = "El número de habitaciones es obligatorio"; 
         }
         if(!$wc) { 
-            $errores[] = "Debes añadir un titulo"; 
+            $errores[] = "El número de baños es obligatorio"; 
         }
         if(!$estacionamiento) { 
-            $errores[] = "Debes añadir un titulo"; 
+            $errores[] = "El número de lugares de estacionamiento es obligatorio"; 
         }
-        if(!$vendedores) { 
-            $errores[] = "Debes añadir un titulo"; 
+        if(!$vendedores_id) { 
+            $errores[] = "Elige un vendedor"; 
         }
 
-            echo '<pre>';
-            var_dump($errores);
-            echo '</pre>';
+        // echo '<pre>';
+        // var_dump($errores);
+        // echo '</pre>';
 
-        exit;
+        // Revisar que el arreglo de errores este vacio
 
-        // Insertar en la Base de Datos
-        $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedores_id ) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedores_id' ) ";
+        if(empty($errores)) { // Empty revisa que un arreglo este vacío 
 
-        // echo $query;
+            // Insertar en la Base de Datos
+            $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedores_id ) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedores_id' ) ";
 
-        $resultado = mysqli_query($db, $query);
+            // echo $query;
 
-        if($resultado) {
-            echo 'Insertado Correctamente';
+            $resultado = mysqli_query($db, $query);
+
+            if($resultado) {
+                echo 'Insertado Correctamente';
+            }
         }
 
     }
@@ -73,6 +76,12 @@
         <h1>Crear</h1>
 
         <a href="/admin" class="boton boton-verde">Volver</a>
+
+        <?php foreach($errores as $error): ?>
+            <div class="alerta error">
+                <?php echo $error; ?>
+            </div>
+        <?php endforeach; ?>
 
         <form class="formulario" method="POST" action="/admin/propiedades/crear.php">
 
@@ -109,6 +118,7 @@
             <legend>Vendedor</legend>
 
             <select name="vendedores_id">
+                <option value="">-- Seleccione --</option>
                 <option value="1">Alonso</option>
                 <option value="2">Karen</option>
             </select>
