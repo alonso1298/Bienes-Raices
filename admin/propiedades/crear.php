@@ -74,7 +74,7 @@
             $errores[] = "La imagen es obligatoria";
         }
 
-        // Validar por tamaño (100 Kb máximo)
+        // Validar por tamaño (1 Mb máximo)
         $medida = 1000 * 1000;
 
         if ($imagen['size'] > $medida){
@@ -92,6 +92,16 @@
             /** SUBIDA DE ARCHIVOS **/
 
             // Crear carpeta
+            $carpetaImages = '../../imagenes';
+
+            if(!is_dir($carpetaImages)){ //La función is_dir retorna si una carpeta existe o no existe
+                mkdir($carpetaImages);
+            }
+
+            // Subir la imagen
+            move_uploaded_file($imagen['tmp_name'], $carpetaImages . "/archivo.jpg");
+
+            exit;
 
             // Insertar en la Base de Datos
             $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id ) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_id' ) ";
