@@ -30,24 +30,23 @@
         // var_dump($_POST); // Nos permite leer los valores del formulario
         // echo '</pre>';
 
-        // $numero = '1HOLA';
-        // $numero2 = 'hola';
+        // echo '<pre>';
+        // var_dump($_FILES); // Contiene la información de los archivos que se han subido mediante formularios.
+        // echo '</pre>';
 
-        // // Sanitizar 
-        // $resultado = filter_var($numero, FILTER_SANITIZE_NUMBER_INT); // Solo mantiene los enteros 
+        $titulo = mysqli_real_escape_string($db, $_POST['titulo'] );
+        $precio = mysqli_real_escape_string($db, $_POST['precio'] );
+        $descripcion = mysqli_real_escape_string($db, $_POST['descripcion'] );
+        $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones'] );
+        $wc = mysqli_real_escape_string($db, $_POST['wc'] );
+        $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento'] );
+        $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedores_id'] );
+        $creado = date('Y/m/d');
 
-        // // Validar
-        // $resultado = filter_var($numero2, FILTER_VALIDATE_INT);
+        // Asignar files hacia una variable 
+        $imagen = $_FILES['imagen'];
 
-        var_dump($resultado);
-
-        $titulo = mysqli_real_escape_string($bd, $_POST['titulo'] );
-        $precio = mysqli_real_escape_string($bd, $_POST['precio'] );
-        $descripcion = mysqli_real_escape_string($bd, $_POST['descripcion'] );
-        $habitaciones = mysqli_real_escape_string($bd, $_POST['habitaciones'] );
-        $wc = mysqli_real_escape_string($bd, $_POST['wc'] );
-        $estacionamiento = mysqli_real_escape_string($bd, $_POST['estacionamiento'] );
-        $vendedores_id = mysqli_real_escape_string($bd, $_POST['vendedores_id'] );
+        // var_dump($imagen['name']); // En caso de que ese valor exista es que el usuario si subio una imagen
 
         if(!$titulo) { // !$titulo significa que si no hay titulo o si esta vacío 
             $errores[] = "Debes añadir un titulo"; // Detecta que $errores es un arreglo y la sintaxias va agregarlo en el arreglo
@@ -55,7 +54,7 @@
         if(!$precio) { 
             $errores[] = "Debes añadir un precio"; 
         }
-        if(strlen( $descripcion ) < 50 || strlen( $descripcion ) > 255 ) { // Validamos que la descripción tenga al menos 50 caracteres y maximo 500 caracteres
+        if(strlen( $descripcion ) < 50 || strlen( $descripcion ) > 500 ) { // Validamos que la descripción tenga al menos 50 caracteres y maximo 500 caracteres
             $errores[] = "La descripción es obligatoria y debe tener al menos 50 caracteres";
         }
         if(!$habitaciones) { 
@@ -71,6 +70,17 @@
             $errores[] = "Elige un vendedor"; 
         }
 
+        if(!$imagen['name'] || $imagen['error']) {
+            $errores[] = "La imagen es obligatoria";
+        }
+
+        // Validar por tamaño (100 Kb máximo)
+        $medida = 1000 * 1000;
+
+        if ($imagen['size'] > $medida){
+            $errores[] = "La imagen es muy grande";
+        } 
+
         // echo '<pre>';
         // var_dump($errores);
         // echo '</pre>';
@@ -80,15 +90,14 @@
         if(empty($errores)) { // Empty revisa que un arreglo este vacío 
 
             // Insertar en la Base de Datos
-            $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedores_id ) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedores_id' ) ";
+            $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id ) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_id' ) ";
 
             // echo $query;
-
             $resultado = mysqli_query($db, $query);
 
             if($resultado) {
-                // redireccionar al usuario
 
+                // redireccionar al usuario
                 header('Location: /admin'); // Esta funcion sirve para redireccionar al usuario, solo sirve si no hay nada de html previo y se recomienda usarlo poco
             }
         }
@@ -110,7 +119,7 @@
             </div>
         <?php endforeach; ?>
 
-        <form class="formulario" method="POST" action="/admin/propiedades/crear.php">
+        <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data"> <!-- enctype="multipart/form-data" Especifica cómo los datos del formulario deben ser codificados antes de ser enviados al servidor-->
 
         <fieldset>
             <legend>Información General</legend>
@@ -123,7 +132,6 @@
 
             <label for="imagen">Imagen:</label>
             <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
-
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion"><?php echo $descripcion ?></textarea>
         </fieldset>
