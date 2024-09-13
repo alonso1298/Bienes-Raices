@@ -89,6 +89,10 @@
 
         if(empty($errores)) { // Empty revisa que un arreglo este vacío 
 
+            /** SUBIDA DE ARCHIVOS **/
+
+            // Crear carpeta
+
             // Insertar en la Base de Datos
             $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id ) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_id' ) ";
 
