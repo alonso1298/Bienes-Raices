@@ -25,6 +25,7 @@
 
     // Ejecutar el código después que el usuario envia el formulario 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
+
         // echo '<pre>';
         // var_dump($_POST); // Nos permite leer los valores del formulario
         // echo '</pre>';
@@ -43,7 +44,7 @@
         if(!$precio) { 
             $errores[] = "Debes añadir un precio"; 
         }
-        if(strlen( $descripcion ) < 50 || strlen( $descripcion ) > 500 ) { // Validamos que la descripción tenga al menos 50 caracteres y maximo 500 caracteres
+        if(strlen( $descripcion ) < 50 || strlen( $descripcion ) > 255 ) { // Validamos que la descripción tenga al menos 50 caracteres y maximo 500 caracteres
             $errores[] = "La descripción es obligatoria y debe tener al menos 50 caracteres";
         }
         if(!$habitaciones) { 
@@ -75,7 +76,9 @@
             $resultado = mysqli_query($db, $query);
 
             if($resultado) {
-                echo 'Insertado Correctamente';
+                // redireccionar al usuario
+
+                header('Location: /admin'); // Esta funcion sirve para redireccionar al usuario, solo sirve si no hay nada de html previo y se recomienda usarlo poco
             }
         }
 
@@ -132,8 +135,11 @@
 
             <select name="vendedores_id">
                 <option value="">-- Seleccione --</option>
-                <option value="1">Alonso</option>
-                <option value="2">Karen</option>
+                // Se le ponen los : para cerrar con ; y no con {}
+                <?php while( $vendedor = mysqli_fetch_assoc($resultado) ) : ?> 
+                    <option <?php echo $vendedores_id === $vendedor['id'] ? 'selected' : ''; ?> value="<?php echo $vendedor['id']; ?>"> <?php echo $vendedor['nombre'] . ' ' . $vendedor['apellido']; ?> </option>
+                <?php endwhile; ?>
+                <!-- Selected es para poner un valor por default, entonces si vendedores_id tiene el mismo id que vendedor se le agrega el atributo de selected -->
             </select>
         </fieldset>
 
