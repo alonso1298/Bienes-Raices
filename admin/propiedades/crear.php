@@ -30,9 +30,9 @@
         // var_dump($_POST); // Nos permite leer los valores del formulario
         // echo '</pre>';
 
-        // echo '<pre>';
-        // var_dump($_FILES); // Contiene la información de los archivos que se han subido mediante formularios.
-        // echo '</pre>';
+        echo '<pre>';
+        var_dump($_FILES); // Contiene la información de los archivos que se han subido mediante formularios.
+        echo '</pre>';
 
         $titulo = mysqli_real_escape_string($db, $_POST['titulo'] );
         $precio = mysqli_real_escape_string($db, $_POST['precio'] );
@@ -92,19 +92,20 @@
             /** SUBIDA DE ARCHIVOS **/
 
             // Crear carpeta
-            $carpetaImages = '../../imagenes';
+            $carpetaImages = '../../imagenes/';
 
             if(!is_dir($carpetaImages)){ //La función is_dir retorna si una carpeta existe o no existe
                 mkdir($carpetaImages);
             }
 
-            // Subir la imagen
-            move_uploaded_file($imagen['tmp_name'], $carpetaImages . "/archivo.jpg");
+            // Generar un nombre unico a la imagen
+            $nombreImagen = md5( uniqid( rand(), true ) ) . '.jpg';
 
-            exit;
+            // Subir la imagen
+            move_uploaded_file($imagen['tmp_name'], $carpetaImages . $nombreImagen);
 
             // Insertar en la Base de Datos
-            $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id ) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_id' ) ";
+            $query = " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id ) VALUES ( '$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_id' ) ";
 
             // echo $query;
             $resultado = mysqli_query($db, $query);
