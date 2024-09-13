@@ -30,23 +30,24 @@
         // var_dump($_POST); // Nos permite leer los valores del formulario
         // echo '</pre>';
 
-        $numero = '1HOLA';
-        $numero2 = 2;
+        // $numero = '1HOLA';
+        // $numero2 = 'hola';
 
-        // Sanitizar 
-        $resultado = filter_var($numero, FILTER_SANITIZE_NUMBER_INT);
+        // // Sanitizar 
+        // $resultado = filter_var($numero, FILTER_SANITIZE_NUMBER_INT); // Solo mantiene los enteros 
+
+        // // Validar
+        // $resultado = filter_var($numero2, FILTER_VALIDATE_INT);
 
         var_dump($resultado);
 
-        exit;
-
-        $titulo = $_POST['titulo'];
-        $precio = $_POST['precio'];
-        $descripcion = $_POST['descripcion'];
-        $habitaciones = $_POST['habitaciones'];
-        $wc = $_POST['wc'];
-        $estacionamiento = $_POST['estacionamiento'];
-        $vendedores_id = $_POST['vendedores_id'];
+        $titulo = mysqli_real_escape_string($bd, $_POST['titulo'] );
+        $precio = mysqli_real_escape_string($bd, $_POST['precio'] );
+        $descripcion = mysqli_real_escape_string($bd, $_POST['descripcion'] );
+        $habitaciones = mysqli_real_escape_string($bd, $_POST['habitaciones'] );
+        $wc = mysqli_real_escape_string($bd, $_POST['wc'] );
+        $estacionamiento = mysqli_real_escape_string($bd, $_POST['estacionamiento'] );
+        $vendedores_id = mysqli_real_escape_string($bd, $_POST['vendedores_id'] );
 
         if(!$titulo) { // !$titulo significa que si no hay titulo o si esta vacío 
             $errores[] = "Debes añadir un titulo"; // Detecta que $errores es un arreglo y la sintaxias va agregarlo en el arreglo
