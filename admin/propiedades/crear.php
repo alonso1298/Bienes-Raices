@@ -30,6 +30,16 @@
         // var_dump($_POST); // Nos permite leer los valores del formulario
         // echo '</pre>';
 
+        $numero = '1HOLA';
+        $numero2 = 2;
+
+        // Sanitizar 
+        $resultado = filter_var($numero, FILTER_SANITIZE_NUMBER_INT);
+
+        var_dump($resultado);
+
+        exit;
+
         $titulo = $_POST['titulo'];
         $precio = $_POST['precio'];
         $descripcion = $_POST['descripcion'];
