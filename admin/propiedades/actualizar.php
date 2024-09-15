@@ -1,4 +1,13 @@
 <?php
+
+    // Validar por ID válido
+    $id = $_GET['id'];
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+
+    if(!$id) {
+        header('Location: /admin'); // Si el id no es un entero nos redirecciona al admin
+    }
+
     // Base de datos
     require '../../includes/config/database.php';
     $db = conectarDB();
@@ -124,7 +133,7 @@
 ?>
 
     <main class="contenedor seccion">
-        <h1>Crear</h1>
+        <h1>Actualizar propiedad</h1>
 
         <a href="/admin" class="boton boton-verde">Volver</a>
 
@@ -177,7 +186,7 @@
             </select>
         </fieldset>
 
-        <input type="submit" value="Crear Popiedad" class="boton boton-verde">
+        <input type="submit" value="Actualizar Popiedad" class="boton boton-verde">
 
         </form>
     </main>

@@ -12,9 +12,9 @@ function darkMode() {
     // console.log(prefiereDarkMode.matches);
 
     if(prefiereDarkMode.matches) {
-        document.body.classList.add('dark-mode')
+        document.body.classList.add('dark-mode') // Se le agrega la clase 'dark-mode' al body
     }else{
-        document.body.classList.remove('dark-mode')
+        document.body.classList.remove('dark-mode') // Se le elimina la clase 'dark-mode' al body
     }
 
     prefiereDarkMode.addEventListener('change', function() { // Si el usuario cambia en ese momento de tema en el sistema operativo, se podra escuchar y cambiar el tema en tiempo real
