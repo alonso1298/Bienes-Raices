@@ -112,7 +112,8 @@
             if($resultado) {
 
                 // redireccionar al usuario
-                header('Location: /admin'); // Esta funcion sirve para redireccionar al usuario, solo sirve si no hay nada de html previo y se recomienda usarlo poco
+                header('Location: /admin?resultado=1'); // Esta funcion sirve para redireccionar al usuario, solo sirve si no hay nada de html previo y se recomienda usarlo poco
+                // Para mostrar mensajes en otra pantalla se utiliza el query string con un signo ? seguido de llaves y valores, para registrar mas de un valor es con & y seguido del valor, ejmplo: Location: /admin?mensaje=Registrado Correctamente&registrado=1
             }
         }
 
