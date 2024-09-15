@@ -7,7 +7,7 @@
     $consulta = "SELECT * FROM vendedores"; 
     $resultado = mysqli_query($db, $consulta);
 
-    // Arreglo con mendajes de errores
+    // Arreglo con mensajes de errores
     $errores = [];
 
     // Se inicializan las variables vacias para despues en el REQUEST_METHOD asignarles un valor
@@ -79,15 +79,14 @@
 
         if ($imagen['size'] > $medida){
             $errores[] = "La imagen es muy grande";
-        } 
+        }
 
         // echo '<pre>';
         // var_dump($errores);
         // echo '</pre>';
 
         // Revisar que el arreglo de errores este vacio
-
-        if(empty($errores)) { // Empty revisa que un arreglo este vacío 
+        if(empty($errores)) { // Empty revisa que un arreglo este vacío
 
             /** SUBIDA DE ARCHIVOS **/
 
