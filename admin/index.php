@@ -36,8 +36,8 @@
                     <td> <img src="/imagenes/1c843bd0672434147acd3a256e740805.jpg" class="imagen-tabla"></td>
                     <td>$12000000</td>
                     <td>
-                        <a href="">Eliminar</a>
-                        <a href="">Actualizar</a>
+                        <a href="#" class="boton-rojo-block">Eliminar</a>
+                        <a href="#" class="boton-amarillo-block">Actualizar</a>
                     </td>
                 </tr>
             </tbody>
