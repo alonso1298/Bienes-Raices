@@ -30,9 +30,9 @@
         // var_dump($_POST); // Nos permite leer los valores del formulario
         // echo '</pre>';
 
-        echo '<pre>';
-        var_dump($_FILES); // Contiene la información de los archivos que se han subido mediante formularios.
-        echo '</pre>';
+        // echo '<pre>';
+        // var_dump($_FILES); // Contiene la información de los archivos que se han subido mediante formularios.
+        // echo '</pre>';
 
         $titulo = mysqli_real_escape_string($db, $_POST['titulo'] );
         $precio = mysqli_real_escape_string($db, $_POST['precio'] );
@@ -143,7 +143,7 @@
             <input type="text" id="titulo" name="titulo" placeholder="Titulo Propiedad" value="<?php echo $titulo ?>"> <!--Name permite leer lo que el usuario escriba-->
             
             <label for="precio">Precio:</label>
-            <input type="number" id="precio" name="precio" placeholder="Precio Propiedad" value="<?php echo $precio ?>">
+            <input type="number" min="0" id="precio" name="precio" placeholder="Precio Propiedad" value="<?php echo $precio ?>">
 
             <label for="imagen">Imagen:</label>
             <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
