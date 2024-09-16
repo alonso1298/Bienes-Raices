@@ -1,5 +1,9 @@
 <?php
 
+    echo('<pre>');
+    var_dump($_POST);
+    echo('</pre>');
+
     // 1- Importar la conexión a la BD 
     require '../includes/config/database.php';
     $db = conectarDB();
@@ -51,7 +55,14 @@
                     <td> <img src="/imagenes/<?php echo $propiedad['imagen']; ?>" class="imagen-tabla"></td>
                     <td><?php echo $propiedad['precio']; ?></td>
                     <td>
-                        <a href="#" class="boton-rojo-block">Eliminar</a>
+                        <form method="$_POST" class="w-100">
+
+                            <!--Se crea un input que no se vea que contenga toda la informacion de la propiedad-->
+                            <input type="hidden" name="id" value="Hola">
+
+                            <input type="submit" class="boton-rojo-block" value="Eliminar">
+                        </form>
+                        
                         <a href="admin/propiedades/actualizar.php?id=<?php echo $propiedad['id']; ?>" class="boton-amarillo-block">Actualizar</a>
                     </td>
                 </tr>
