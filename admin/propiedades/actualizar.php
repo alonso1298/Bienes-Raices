@@ -12,6 +12,15 @@
     require '../../includes/config/database.php';
     $db = conectarDB();
 
+    // Otra consulta para obtener los datos de la propiedad
+    $consulta = "SELECT * FROM propiedades WHERE id = {$id}";
+    $resultado = mysqli_query($db, $consulta);
+    $propiedad = mysqli_fetch_assoc($resultado);
+
+    // echo('<pre>');
+    //     var_dump($propiedad);
+    // echo('</pre>');
+
     //Consultar para obtener los vendedores
     $consulta = "SELECT * FROM vendedores"; 
     $resultado = mysqli_query($db, $consulta);
@@ -20,28 +29,18 @@
     $errores = [];
 
     // Se inicializan las variables vacias para despues en el REQUEST_METHOD asignarles un valor
-    $titulo = '';
-    $precio = '';
-    $descripcion = '';
-    $habitaciones = '';
-    $wc = '';
-    $estacionamiento = '';
-    $vendedores_id = '';
+    $titulo = $propiedad['titulo'];
+    $precio = $propiedad['precio'];
+    $descripcion = $propiedad['descripcion'];
+    $habitaciones = $propiedad['habitaciones'];
+    $wc = $propiedad['wc'];
+    $estacionamiento = $propiedad['estacionamiento'];
+    $vendedores_id = $propiedad['vendedores_id'];
+    $imagenPropiedad = $propiedad['imagen'];
 
-    // echo '<pre>';
-    // var_dump($_SERVER['REQUEST_METHOD']); // Nos permite leer los valores del servidor
-    // echo '</pre>';
 
     // Ejecutar el código después que el usuario envia el formulario 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-        // echo '<pre>';
-        // var_dump($_POST); // Nos permite leer los valores del formulario
-        // echo '</pre>';
-
-        // echo '<pre>';
-        // var_dump($_FILES); // Contiene la información de los archivos que se han subido mediante formularios.
-        // echo '</pre>';
 
         $titulo = mysqli_real_escape_string($db, $_POST['titulo'] );
         $precio = mysqli_real_escape_string($db, $_POST['precio'] );
@@ -156,6 +155,9 @@
 
             <label for="imagen">Imagen:</label>
             <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
+
+            <img src="/imagenes/<?php echo $imagenPropiedad; ?>" class="imagen-small">
+
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion"><?php echo $descripcion ?></textarea>
         </fieldset>
