@@ -21,6 +21,10 @@
     //     var_dump($propiedad);
     // echo('</pre>');
 
+    // echo '<pre>';
+    // var_dump($_FILES);
+    // echo '</pre>';
+
     //Consultar para obtener los vendedores
     $consulta = "SELECT * FROM vendedores"; 
     $resultado = mysqli_query($db, $consulta);
@@ -42,9 +46,9 @@
     // Ejecutar el código después que el usuario envia el formulario 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        echo '<pre>';
-            var_dump($_POST);
-        echo '</pre>';
+        // echo '<pre>';
+        //     var_dump($_POST);
+        // echo '</pre>';
 
         $titulo = mysqli_real_escape_string($db, $_POST['titulo'] );
         $precio = mysqli_real_escape_string($db, $_POST['precio'] );
@@ -91,23 +95,33 @@
         // Revisar que el arreglo de errores este vacio
         if(empty($errores)) { // Empty revisa que un arreglo este vacío
 
+            // Crear carpeta
+            $carpetaImages = '../../imagenes/';
+
+            if(!is_dir($carpetaImages)){ //La función is_dir retorna si una carpeta existe o no existe
+                mkdir($carpetaImages);
+            }
+
+            $nombreImagen = '';
+
             /** SUBIDA DE ARCHIVOS **/
 
-            // // Crear carpeta
-            // $carpetaImages = '../../imagenes/';
+            if($imagen['name']){
 
-            // if(!is_dir($carpetaImages)){ //La función is_dir retorna si una carpeta existe o no existe
-            //     mkdir($carpetaImages);
-            // }
+                // Eliminar la imagen previa
+                unlink($carpetaImages . $propiedad['imagen']); // unlink() Funcion destinada para eliminar archivos 
 
-            // // Generar un nombre unico a la imagen
-            // $nombreImagen = md5( uniqid( rand(), true ) ) . '.jpg';
+                // Generar un nombre unico a la imagen
+                $nombreImagen = md5( uniqid( rand(), true ) ) . '.jpg';
 
-            // // Subir la imagen
-            // move_uploaded_file($imagen['tmp_name'], $carpetaImages . $nombreImagen);
+                // Subir la imagen
+                move_uploaded_file($imagen['tmp_name'], $carpetaImages . $nombreImagen);
+            } else {
+                $nombreImagen = $propiedad['imagen'];
+            }
 
             // Insertar en la Base de Datos
-            $query = " UPDATE propiedades SET titulo = '{$titulo}', precio = '{$precio}', descripcion = '{$descripcion}', habitaciones = {$habitaciones}, wc = {$wc}, estacionamiento = {$estacionamiento}, vendedores_id = {$vendedores_id} WHERE id = {$id} ";
+            $query = " UPDATE propiedades SET titulo = '{$titulo}', precio = '{$precio}', imagen = '{$nombreImagen}', descripcion = '{$descripcion}', habitaciones = {$habitaciones}, wc = {$wc}, estacionamiento = {$estacionamiento}, vendedores_id = {$vendedores_id} WHERE id = {$id} ";
 
             // echo $query;
 
@@ -117,7 +131,6 @@
 
                 // redireccionar al usuario
                 header('Location: /admin?resultado=2'); // Esta funcion sirve para redireccionar al usuario, solo sirve si no hay nada de html previo y se recomienda usarlo poco
-                // Para mostrar mensajes en otra pantalla se utiliza el query string con un signo ? seguido de llaves y valores, para registrar mas de un valor es con & y seguido del valor, ejmplo: Location: /admin?mensaje=Registrado Correctamente&registrado=1
             }
         }
 
