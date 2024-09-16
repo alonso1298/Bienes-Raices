@@ -42,6 +42,10 @@
     // Ejecutar el código después que el usuario envia el formulario 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+        echo '<pre>';
+            var_dump($_POST);
+        echo '</pre>';
+
         $titulo = mysqli_real_escape_string($db, $_POST['titulo'] );
         $precio = mysqli_real_escape_string($db, $_POST['precio'] );
         $descripcion = mysqli_real_escape_string($db, $_POST['descripcion'] );
@@ -78,49 +82,41 @@
             $errores[] = "Elige un vendedor"; 
         }
 
-        if(!$imagen['name'] || $imagen['error']) {
-            $errores[] = "La imagen es obligatoria";
-        }
-
         // Validar por tamaño (1 Mb máximo)
         $medida = 1000 * 1000;
-
         if ($imagen['size'] > $medida){
             $errores[] = "La imagen es muy grande";
         }
-
-        // echo '<pre>';
-        // var_dump($errores);
-        // echo '</pre>';
 
         // Revisar que el arreglo de errores este vacio
         if(empty($errores)) { // Empty revisa que un arreglo este vacío
 
             /** SUBIDA DE ARCHIVOS **/
 
-            // Crear carpeta
-            $carpetaImages = '../../imagenes/';
+            // // Crear carpeta
+            // $carpetaImages = '../../imagenes/';
 
-            if(!is_dir($carpetaImages)){ //La función is_dir retorna si una carpeta existe o no existe
-                mkdir($carpetaImages);
-            }
+            // if(!is_dir($carpetaImages)){ //La función is_dir retorna si una carpeta existe o no existe
+            //     mkdir($carpetaImages);
+            // }
 
-            // Generar un nombre unico a la imagen
-            $nombreImagen = md5( uniqid( rand(), true ) ) . '.jpg';
+            // // Generar un nombre unico a la imagen
+            // $nombreImagen = md5( uniqid( rand(), true ) ) . '.jpg';
 
-            // Subir la imagen
-            move_uploaded_file($imagen['tmp_name'], $carpetaImages . $nombreImagen);
+            // // Subir la imagen
+            // move_uploaded_file($imagen['tmp_name'], $carpetaImages . $nombreImagen);
 
             // Insertar en la Base de Datos
-            $query = " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id ) VALUES ( '$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_id' ) ";
+            $query = " UPDATE propiedades SET titulo = '{$titulo}', precio = '{$precio}', descripcion = '{$descripcion}', habitaciones = {$habitaciones}, wc = {$wc}, estacionamiento = {$estacionamiento}, vendedores_id = {$vendedores_id} WHERE id = {$id} ";
 
             // echo $query;
+
             $resultado = mysqli_query($db, $query);
 
             if($resultado) {
 
                 // redireccionar al usuario
-                header('Location: /admin?resultado=1'); // Esta funcion sirve para redireccionar al usuario, solo sirve si no hay nada de html previo y se recomienda usarlo poco
+                header('Location: /admin?resultado=2'); // Esta funcion sirve para redireccionar al usuario, solo sirve si no hay nada de html previo y se recomienda usarlo poco
                 // Para mostrar mensajes en otra pantalla se utiliza el query string con un signo ? seguido de llaves y valores, para registrar mas de un valor es con & y seguido del valor, ejmplo: Location: /admin?mensaje=Registrado Correctamente&registrado=1
             }
         }
@@ -142,7 +138,7 @@
             </div>
         <?php endforeach; ?>
 
-        <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data"> <!-- enctype="multipart/form-data" Especifica cómo los datos del formulario deben ser codificados antes de ser enviados al servidor-->
+        <form class="formulario" method="POST" enctype="multipart/form-data"> <!-- enctype="multipart/form-data" Especifica cómo los datos del formulario deben ser codificados antes de ser enviados al servidor-->
 
         <fieldset>
             <legend>Información General</legend>
