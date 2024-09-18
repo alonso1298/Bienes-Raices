@@ -5,7 +5,7 @@
     $id = filter_var($id, FILTER_VALIDATE_INT);
 
     if(!$id) {
-        header('Location: /anuncio'); // Si el id no es un entero nos redirecciona al admin
+        header('Location: /'); // Si el id no es un entero nos redirecciona al index
     }
 
     // Importar la Base de Datos ó Conexón
@@ -18,6 +18,11 @@
     // Obtener el resultado
     $resultado = mysqli_query($db, $query);
 
+    if(!$resultado->num_rows === 0) { //  Como $resultado nos devuelve un objeto y num_rows nos indica si un id es valido o no, para acceder a el utilizamos la funcion flecha -> y asi podemos leer el resultado $resultado->num_rows
+        header('Location /');
+    }
+
+    // Obtener todo el contenido del registro y guardar en la variabel $propiedad
     $propiedad = mysqli_fetch_assoc($resultado);
     
 
@@ -31,7 +36,7 @@
         <img loading="lazy" src="/imagenes/<?php echo $propiedad['imagen']; ?>" alt="imagen de la propiedad">
 
         <div class="resumen-propiedad">
-            <p class="precio"><?php echo $propiedad['precio']; ?></p>
+            <p class="precio">$<?php echo $propiedad['precio']; ?></p>
             <ul class="iconos-caracteristicas">
                 <li>
                     <img class="icono" loading="lazy" src="build/img/icono_wc.svg" alt="icono wc">
@@ -52,7 +57,7 @@
     </main>
 
 <?php
-    incluirTemplate('footer'); 
-
     mysqli_close($db);
+
+    incluirTemplate('footer'); 
 ?>
