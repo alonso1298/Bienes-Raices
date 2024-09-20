@@ -31,10 +31,23 @@
             $query = "SELECT * FROM usuarios WHERE email = '{$email}' ";
             $resultado = mysqli_query($db, $query);
 
-            var_dump($resultado);
-
-            if( $resultado->num_rows ){
+            if( $resultado->num_rows ){ // Num_rows nos sirve para comprobar que hay resultados en una consulta a la base de datos
                 // Revisar si es password es correcto
+                $usuario = mysqli_fetch_assoc($resultado);
+
+                // var_dump($usuario['password']);
+
+                // Verificar si el password es correcto o no
+
+                $auth = password_verify($password, $usuario['password']);
+
+                var_dump($auth);
+
+                if($auth) {
+                    // El usuario esta autenticado
+                } else {
+                    $errores[] = 'La contraseña o el usuario son incorrectos';
+                }
 
             }else {
                 $errores[] = 'El usuario o contraseña es incorrecto';
