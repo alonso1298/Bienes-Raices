@@ -21,13 +21,27 @@
             $errores[] = 'El password es obligatorio o no es válido';
         }
 
-        if(empty($errores)) {
-            
-        }
-
         // echo '<pre>';
         // var_dump($errores);
         // echo '</pre>';
+
+        if(empty($errores)) {
+
+            // Revisar si el usuario existe 
+            $query = "SELECT * FROM usuarios WHERE email = '{$email}' ";
+            $resultado = mysqli_query($db, $query);
+
+            var_dump($resultado);
+
+            if( $resultado->num_rows ){
+                // Revisar si es password es correcto
+
+            }else {
+                $errores[] = 'El usuario o contraseña es incorrecto';
+            }
+
+        }
+
     }
 
     // Inclye el header
