@@ -38,7 +38,6 @@
                 // var_dump($usuario['password']);
 
                 // Verificar si el password es correcto o no
-
                 $auth = password_verify($password, $usuario['password']);
 
                 // var_dump($auth);
@@ -50,6 +49,8 @@
                     // Llenar el arreglo de la sesión
                     $_SESSION['usuario'] = $usuario['email'];
                     $_SESSION['login'] = true;
+
+                    header('Location: /admin');
 
                 } else {
                     $errores[] = 'La contraseña o el usuario son incorrectos';

@@ -1,3 +1,16 @@
+<?php 
+
+    // Validamos si la variable esta definida y si no se arranca la session 
+    if(!isset($_SESSION)) {
+        // Se tiene que iniciar la session para tener acceso a la super global $_SESSION
+        session_start();
+    }
+    // var_dump($_SESSION);
+
+    $auth = $_SESSION['login'] ?? false;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +39,9 @@
                         <a href="anuncios.php">Anuncios</a>
                         <a href="blog.php">Blog</a>
                         <a href="contacto.php">Contacto</a>
+                        <?php if($auth): ?>
+                            <a href="cerrar-sesion.php">Cerrar Sesion</a>
+                        <?php endif ?>
                     </nav>
                 </div>
 

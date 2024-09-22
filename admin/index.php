@@ -57,7 +57,6 @@
     }
 
     // Incluye un template
-    require '../includes/funciones.php'; 
     incluirTemplate('header');
 ?>
 
