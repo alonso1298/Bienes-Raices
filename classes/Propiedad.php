@@ -6,6 +6,7 @@ class Propiedad {
 
     // Base de datos 
     protected static $db; // Si creamos una propiedad estatico el metodo tiene que se estatico también
+    protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedores_id'];
     
     public $id;
     public $titulo;
@@ -17,6 +18,11 @@ class Propiedad {
     public $estacionamiento;
     public $creado;
     public $vendedores_id;
+
+    //Definir la conexión a la base de datos
+    public static function setDB($database) {
+        self::$db = $database; // Accedemos con self a las propiedades estaticas
+    }
 
     public function __construct($args = [])
     {
@@ -33,6 +39,11 @@ class Propiedad {
     }
 
     public function guardar() {
+
+        // Sanitizar la entrada de los datos 
+        $atributos = $this->sanitizarAtributos(); // Para mandar llamar un método dentro de otro método es con this 
+        debuguear($atributos);
+
         // Insertar en la Base de Datos
         $query = " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id ) VALUES ( '$this->titulo', '$this->precio', '$this->imagen', '$this->descripcion', '$this->habitaciones', '$this->wc', '$this->estacionamiento', '$this->creado', '$this->vendedores_id' ) ";
 
@@ -41,8 +52,23 @@ class Propiedad {
         debuguear($resultado);
     }
 
-    //Definir la conexión a la base de datos
-    public static function setDB($database) {
-        self::$db = $database; // Accedemos con self a las propiedades estaticas
+    // Identificar y unir los atributos de la base de datos 
+    public function atributos() {
+        $atributos = [];
+        foreach(self::$columnasDB as $columna) {
+            if($columna === 'id') continue; // continue hace que cuando de cumpla la condicion ignora y se va a la siguiente elemento del foreach
+            $atributos[$columna] = $this->$columna; // Se le pone el signo de $ despues del this ya que es una variable del foreach
+        }
+        return $atributos;
+    }
+
+    public function sanitizarAtributos() {
+        $atributos = $this->atributos();
+        $sanitizado = [];
+        foreach($atributos as $key => $value) {
+            $sanitizado[$key] = self::$db->escape_string($value);
+        }
+
+        return $sanitizado;
     }
 }
