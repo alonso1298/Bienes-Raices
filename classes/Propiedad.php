@@ -3,6 +3,9 @@
 namespace App;
 
 class Propiedad {
+
+    // Base de datos 
+    protected static $db; // Si creamos una propiedad estatico el metodo tiene que se estatico también
     
     public $id;
     public $titulo;
@@ -21,7 +24,7 @@ class Propiedad {
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
-        $this->imagen = $args['imagen'] ?? '';
+        $this->imagen = $args['imagen'] ?? 'imagen.jpg';
         $this->habitaciones = $args['habitaciones'] ?? '';
         $this->wc = $args['wc'] ?? '';
         $this->estacionamiento = $args['estacionamiento'] ?? '';
@@ -30,6 +33,16 @@ class Propiedad {
     }
 
     public function guardar() {
-        echo 'Guradando en la base de datos';
+        // Insertar en la Base de Datos
+        $query = " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id ) VALUES ( '$this->titulo', '$this->precio', '$this->imagen', '$this->descripcion', '$this->habitaciones', '$this->wc', '$this->estacionamiento', '$this->creado', '$this->vendedores_id' ) ";
+
+        $resultado = self::$db->query($query);
+
+        debuguear($resultado);
+    }
+
+    //Definir la conexión a la base de datos
+    public static function setDB($database) {
+        self::$db = $database; // Accedemos con self a las propiedades estaticas
     }
 }

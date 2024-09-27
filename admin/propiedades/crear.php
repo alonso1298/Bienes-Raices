@@ -112,9 +112,6 @@
             // Subir la imagen
             move_uploaded_file($imagen['tmp_name'], $carpetaImages . $nombreImagen);
 
-            // Insertar en la Base de Datos
-            $query = " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id ) VALUES ( '$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedores_id' ) ";
-
             // echo $query;
             $resultado = mysqli_query($db, $query);
 
