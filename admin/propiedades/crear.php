@@ -31,13 +31,17 @@
     // Ejecutar el código después que el usuario envia el formulario 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+        $propiedad = new Propiedad($_POST);
+
+        $propiedad->guardar();
+
         // echo '<pre>';
         // var_dump($_POST); // Nos permite leer los valores del formulario
         // echo '</pre>';
 
-        // echo '<pre>';
-        // var_dump($_FILES); // Contiene la información de los archivos que se han subido mediante formularios.
-        // echo '</pre>';
+        echo '<pre>';
+        var_dump($_FILES); // Contiene la información de los archivos que se han subido mediante formularios.
+        echo '</pre>';
 
         $titulo = mysqli_real_escape_string($db, $_POST['titulo'] );
         $precio = mysqli_real_escape_string($db, $_POST['precio'] );
