@@ -1,5 +1,5 @@
 <?php
-    require 'includes/funciones.php'; // Requiere es mas efectivo cuando importamos funciones, codigo, etc.. 
+    require 'includes/app.php'; // Requiere es mas efectivo cuando importamos funciones, codigo, etc.. 
     incluirTemplate('header', $inicio = true);
 ?>
 

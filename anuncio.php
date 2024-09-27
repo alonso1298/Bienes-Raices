@@ -8,8 +8,8 @@
         header('Location: /'); // Si el id no es un entero nos redirecciona al index
     }
 
-    // Importar la Base de Datos ó Conexón
-    require __DIR__ . '/includes/config/database.php';
+    require 'includes/app.php'; 
+
     $db = conectarDB();
 
     // Consultar la Base de Datos
@@ -25,8 +25,6 @@
     // Obtener todo el contenido del registro y guardar en la variabel $propiedad
     $propiedad = mysqli_fetch_assoc($resultado);
     
-
-    require 'includes/funciones.php'; 
     incluirTemplate('header');
 ?>
 
