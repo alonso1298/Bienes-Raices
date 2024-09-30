@@ -14,7 +14,6 @@ function estaAutenticado() {
     if(!$_SESSION['login']){
         header('Location: /');
     }
-    return true;
 }
 
 function debuguear($variable){

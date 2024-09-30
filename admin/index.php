@@ -1,31 +1,12 @@
 <?php
 
-    require '../includes/funciones.php'; 
-    $auth = estaAutenticado();
+    require '../includes/app.php'; 
+    estaAutenticado();
 
-    if(!$auth) {
-        header('Location: /');
-    }
+    use App\Propiedad;
 
-    // echo('<pre>');
-    // var_dump($_POST);
-    // echo('</pre>');
-
-    // 1- Importar la conexión a la BD 
-    require '../includes/config/database.php';
-    $db = conectarDB();
-
-    // 2- Exscribir el Query
-    $query = "SELECT * FROM propiedades";
-
-    // 3- Consultar la BD
-    $resultadoConsulta = mysqli_query($db, $query);
-
-    // // Para leer el mendaje de crear php se accede mediante GET
-    // echo '<pre>';
-    // var_dump($_GET['mensaje']);
-    // echo '</pre>';
-    // exit; 
+    // Implementar un metodo para obtener todas las propiedades
+    $propiedades = Propiedad::all();
 
     // Muestra mensaje condicional
     $resultado = $_GET['resultado'] ?? null; // El paceholder ?? null busca el valor $_GET['resultado'] y si no existe le asigna null }
