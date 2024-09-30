@@ -7,6 +7,9 @@ class Propiedad {
     // Base de datos 
     protected static $db; // Si creamos una propiedad estatico el metodo tiene que se estatico también
     protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedores_id'];
+
+    // Errores
+    protected static $errores = [];
     
     public $id;
     public $titulo;
@@ -73,5 +76,49 @@ class Propiedad {
         }
 
         return $sanitizado;
+    }
+
+    // Validacion
+    public static function getErrores() {
+        return self::$errores;
+    }
+
+    public function validar() {
+        
+        if(!$this->titulo) { // !$titulo significa que si no hay titulo o si esta vacío 
+            self::$errores[] = "Debes añadir un titulo"; // Detecta que $errores es un arreglo y la sintaxias va agregarlo en el arreglo
+        }
+        if(!$this->precio) { 
+            self::$errores[] = "Debes añadir un precio"; 
+        }
+        if(strlen( $this->descripcion ) < 50 || strlen( $this->descripcion ) > 500 ) { // Validamos que la descripción tenga al menos 50 caracteres y maximo 500 caracteres
+            self::$errores[] = "La descripción es obligatoria y debe tener al menos 50 caracteres";
+        }
+        if(!$this->habitaciones) { 
+            self::$errores[] = "El número de habitaciones es obligatorio"; 
+        }
+        if(!$this->wc) { 
+            self::$errores[] = "El número de baños es obligatorio"; 
+        }
+        if(!$this->estacionamiento) { 
+            self::$errores[] = "El número de lugares de estacionamiento es obligatorio"; 
+        }
+        if(!$this->vendedores_id) { 
+            self::$errores[] = "Elige un vendedor"; 
+        }
+
+        // var_dump($imagen['name']); // En caso de que ese valor exista es que el usuario si subio una imagen
+        // if(!$this->imagen['name'] || $this->imagen['error']) {
+        //     self::$errores = "La imagen es obligatoria";
+        // }
+
+        // // Validar por tamaño (1 Mb máximo)
+        // $this->medida = 1000 * 1000;
+
+        // if ($this->imagen['size'] > $this->medida){
+        //     self::$errores = "La imagen es muy grande";
+        // }
+
+        return self::$errores;
     }
 }
