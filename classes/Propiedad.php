@@ -42,10 +42,13 @@ class Propiedad {
 
         // Sanitizar la entrada de los datos 
         $atributos = $this->sanitizarAtributos(); // Para mandar llamar un método dentro de otro método es con this 
-        debuguear($atributos);
 
         // Insertar en la Base de Datos
-        $query = " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id ) VALUES ( '$this->titulo', '$this->precio', '$this->imagen', '$this->descripcion', '$this->habitaciones', '$this->wc', '$this->estacionamiento', '$this->creado', '$this->vendedores_id' ) ";
+        $query = " INSERT INTO propiedades ( ";
+        $query .= join(', ', array_keys($atributos)); // Join crea un nuevo string a partir de un arreglo toma dos valores el primero es el separador y el segundo el arreglo
+        $query .= " ) VALUES (' ";  
+        $query .= join("', '", array_values($atributos));
+        $query .= " ') ";
 
         $resultado = self::$db->query($query);
 
