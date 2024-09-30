@@ -33,7 +33,7 @@ class Propiedad {
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
-        $this->imagen = $args['imagen'] ?? 'imagen.jpg';
+        $this->imagen = $args['imagen'] ?? '';
         $this->habitaciones = $args['habitaciones'] ?? '';
         $this->wc = $args['wc'] ?? '';
         $this->estacionamiento = $args['estacionamiento'] ?? '';
@@ -55,7 +55,7 @@ class Propiedad {
 
         $resultado = self::$db->query($query);
 
-        debuguear($resultado);
+        return $resultado;
     }
 
     // Identificar y unir los atributos de la base de datos 
@@ -76,6 +76,14 @@ class Propiedad {
         }
 
         return $sanitizado;
+    }
+
+    // Subida de archivos
+    public function setImagen($imagen){
+        // Asignar al atributo de imagen el nombre de la imagen
+        if($imagen){
+            $this->imagen = $imagen;
+        }
     }
 
     // Validacion
@@ -107,17 +115,9 @@ class Propiedad {
             self::$errores[] = "Elige un vendedor"; 
         }
 
-        // var_dump($imagen['name']); // En caso de que ese valor exista es que el usuario si subio una imagen
-        // if(!$this->imagen['name'] || $this->imagen['error']) {
-        //     self::$errores = "La imagen es obligatoria";
-        // }
-
-        // // Validar por tamaño (1 Mb máximo)
-        // $this->medida = 1000 * 1000;
-
-        // if ($this->imagen['size'] > $this->medida){
-        //     self::$errores = "La imagen es muy grande";
-        // }
+        if(!$this->imagen) {
+            self::$errores[] = "La imagen es obligatoria";
+        }
 
         return self::$errores;
     }

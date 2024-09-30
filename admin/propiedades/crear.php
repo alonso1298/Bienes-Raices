@@ -3,6 +3,7 @@
     require '../../includes/app.php'; 
 
     use App\Propiedad;
+    use Intervention\Image\ImageManagerStatic as Image;
 
     estaAutenticado();
 
@@ -31,42 +32,39 @@
     // Ejecutar el código después que el usuario envia el formulario 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+        /** Crea una nueva instancia **/
         $propiedad = new Propiedad($_POST);
 
+        /** SUBIDA DE ARCHIVOS **/
+
+        // Generar un nombre unico a la imagen
+        $nombreImagen = md5( uniqid( rand(), true ) ) . '.jpg';
+
+        // Setear la imagen
+        if($_FILES['imagen']['tmp_name']){
+            // Realiza un resize a la imagen con intervetion
+            $image = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+            $propiedad->setImagen($nombreImagen);
+        }
+
+        // Validar
         $errores = $propiedad->validar();
 
         // Revisar que el arreglo de errores este vacio
         if(empty($errores)) { // Empty revisa que un arreglo este vacío
 
-            $propiedad->guardar();
-
-            // Asignar files hacia una variable 
-            $imagen = $_FILES['imagen'];
-
-
-
-            // echo '<pre>';
-            // var_dump($errores);
-            // echo '</pre>';
-
-            /** SUBIDA DE ARCHIVOS **/
-
-            // Crear carpeta
-            $carpetaImages = '../../imagenes/';
-
-            if(!is_dir($carpetaImages)){ //La función is_dir retorna si una carpeta existe o no existe
-                mkdir($carpetaImages);
+            // Crear la carpeta
+            if(!is_dir(CARPETA_IMAGENES)){ //La función is_dir retorna si una carpeta existe o no existe
+                    mkdir(CARPETA_IMAGENES);
             }
 
-            // Generar un nombre unico a la imagen
-            $nombreImagen = md5( uniqid( rand(), true ) ) . '.jpg';
+            // Guarda la imagen en el servidor
+            $image->save(CARPETA_IMAGENES . $nombreImagen);
 
-            // Subir la imagen
-            move_uploaded_file($imagen['tmp_name'], $carpetaImages . $nombreImagen);
+            // Guarda en la base de datos
+            $resultado = $propiedad->guardar();
 
-            // echo $query;
-            $resultado = mysqli_query($db, $query);
-
+            // Mensaje de exito o error
             if($resultado) {
 
                 // redireccionar al usuario
