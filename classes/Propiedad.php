@@ -130,6 +130,15 @@ class Propiedad {
 
         return $resultado;
     }
+ 
+    // Busca un registro por su ID
+    public static function find($id) {
+        $query = "SELECT * FROM propiedades WHERE id = {$id}";
+
+        $resultado = self::consultarSQL($query);
+
+        return array_shift($resultado); // array_shift nos retorna el primer elemento de un arreglo
+    }
 
     public static function consultarSQL($query){
         // Consultar la base de datos
