@@ -86,7 +86,7 @@ class Propiedad {
             $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
             if($existeArchivo) {
                 // Si existe el archivo se elimina con Unlink
-                unlink();
+                unlink(CARPETA_IMAGENES . $this->imagen);
             }
         }
 
