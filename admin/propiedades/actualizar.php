@@ -22,7 +22,7 @@ require '../../includes/app.php';
     $resultado = mysqli_query($db, $consulta);
 
     // Arreglo con mensajes de errores
-    $errores = [];
+    $errores = Propiedad::getErrores();
 
     // Ejecutar el código después que el usuario envia el formulario 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -32,40 +32,8 @@ require '../../includes/app.php';
 
         $propiedad->sincronizar($args);
 
-        debuguear($propiedad);
-
-        // Asignar files hacia una variable 
-        $imagen = $_FILES['imagen'];
-
-        // var_dump($imagen['name']); // En caso de que ese valor exista es que el usuario si subio una imagen
-
-        if(!$titulo) { // !$titulo significa que si no hay titulo o si esta vacío 
-            $errores[] = "Debes añadir un titulo"; // Detecta que $errores es un arreglo y la sintaxias va agregarlo en el arreglo
-        }
-        if(!$precio) { 
-            $errores[] = "Debes añadir un precio"; 
-        }
-        if(strlen( $descripcion ) < 50 || strlen( $descripcion ) > 500 ) { // Validamos que la descripción tenga al menos 50 caracteres y maximo 500 caracteres
-            $errores[] = "La descripción es obligatoria y debe tener al menos 50 caracteres";
-        }
-        if(!$habitaciones) { 
-            $errores[] = "El número de habitaciones es obligatorio"; 
-        }
-        if(!$wc) { 
-            $errores[] = "El número de baños es obligatorio"; 
-        }
-        if(!$estacionamiento) { 
-            $errores[] = "El número de lugares de estacionamiento es obligatorio"; 
-        }
-        if(!$vendedores_id) { 
-            $errores[] = "Elige un vendedor"; 
-        }
-
-        // Validar por tamaño (1 Mb máximo)
-        $medida = 1000 * 1000;
-        if ($imagen['size'] > $medida){
-            $errores[] = "La imagen es muy grande";
-        }
+        // Se agregan los errores
+        $errores = $propiedad->validar();
 
         // Revisar que el arreglo de errores este vacio
         if(empty($errores)) { // Empty revisa que un arreglo este vacío
