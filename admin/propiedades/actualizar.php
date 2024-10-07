@@ -1,6 +1,7 @@
 <?php
 
 use App\Propiedad;
+use Intervention\Image\ImageManagerStatic as Image;
 
 require '../../includes/app.php'; 
 
@@ -32,36 +33,25 @@ require '../../includes/app.php';
 
         $propiedad->sincronizar($args);
 
-        // Se agregan los errores
+        // Validación 
         $errores = $propiedad->validar();
+
+        /* Subida de archivos */
+
+        // Generar un nombre único a la imagen
+        $nombreImagen = md5( uniqid( rand(), true ) ) . '.jpg';
+
+        if($_FILES['propiedad']['tmp_name']['imagen']){
+            // Realiza un resize a la imagen con intervetion
+            $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
+            $propiedad->setImagen($nombreImagen);
+        }
+
 
         // Revisar que el arreglo de errores este vacio
         if(empty($errores)) { // Empty revisa que un arreglo este vacío
 
-            // Crear carpeta
-            $carpetaImages = '../../imagenes/';
-
-            if(!is_dir($carpetaImages)){ //La función is_dir retorna si una carpeta existe o no existe
-                mkdir($carpetaImages);
-            }
-
-            $nombreImagen = '';
-
-            /** SUBIDA DE ARCHIVOS **/
-
-            if($imagen['name']){
-
-                // Eliminar la imagen previa
-                unlink($carpetaImages . $propiedad['imagen']); // unlink() Funcion destinada para eliminar archivos 
-
-                // Generar un nombre unico a la imagen
-                $nombreImagen = md5( uniqid( rand(), true ) ) . '.jpg';
-
-                // Subir la imagen
-                move_uploaded_file($imagen['tmp_name'], $carpetaImages . $nombreImagen);
-            } else {
-                $nombreImagen = $propiedad['imagen'];
-            }
+            exit;
 
             // Insertar en la Base de Datos
             $query = " UPDATE propiedades SET titulo = '{$titulo}', precio = '{$precio}', imagen = '{$nombreImagen}', descripcion = '{$descripcion}', habitaciones = {$habitaciones}, wc = {$wc}, estacionamiento = {$estacionamiento}, vendedores_id = {$vendedores_id} WHERE id = {$id} ";
