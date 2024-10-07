@@ -2,7 +2,7 @@
 
 use App\Propiedad;
 
-    require '../../includes/app.php'; 
+require '../../includes/app.php'; 
 
     estaAutenticado();
 
@@ -24,32 +24,15 @@ use App\Propiedad;
     // Arreglo con mensajes de errores
     $errores = [];
 
-    // Se inicializan las variables vacias para despues en el REQUEST_METHOD asignarles un valor
-    $titulo = $propiedad->titulo;
-    $precio = $propiedad->precio;
-    $descripcion = $propiedad->descripcion;
-    $habitaciones = $propiedad->habitaciones;
-    $wc = $propiedad->wc;
-    $estacionamiento = $propiedad->estacionamiento;
-    $vendedores_id = $propiedad->vendedores_id;
-    $imagenPropiedad = $propiedad->imagen;
-
-
     // Ejecutar el código después que el usuario envia el formulario 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        // echo '<pre>';
-        //     var_dump($_POST);
-        // echo '</pre>';
+        // Asignar los atributos
+        $args = $_POST['propiedad'];
 
-        $titulo = mysqli_real_escape_string($db, $_POST['titulo'] );
-        $precio = mysqli_real_escape_string($db, $_POST['precio'] );
-        $descripcion = mysqli_real_escape_string($db, $_POST['descripcion'] );
-        $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones'] );
-        $wc = mysqli_real_escape_string($db, $_POST['wc'] );
-        $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento'] );
-        $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedores_id'] );
-        $creado = date('Y/m/d');
+        $propiedad->sincronizar($args);
+
+        debuguear($propiedad);
 
         // Asignar files hacia una variable 
         $imagen = $_FILES['imagen'];

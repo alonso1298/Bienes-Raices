@@ -122,7 +122,7 @@ class Propiedad {
         return self::$errores;
     }
 
-    // Lista todas las propiedades
+    // Lista todos los registros
     public static function all() {
         $query = "SELECT * FROM propiedades";
 
@@ -167,5 +167,14 @@ class Propiedad {
         }
 
         return $objeto;
+    }
+
+    // Sincroniza el objeto en memoria por los cambios realizados por el usuario
+    public function sincronizar( $args = [] ){
+        foreach($args as $key => $value){
+            if(property_exists($this, $key) && !is_null($value)) { // This es el objeto actual y si no esta nullo el valor sigue siendo el del value
+                $this->$key = $value;
+            } 
+        }
     }
 }
