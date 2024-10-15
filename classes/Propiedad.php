@@ -42,6 +42,16 @@ class Propiedad {
     }
 
     public function guardar() {
+        if(isset($this->id)) {
+            // Actualizar
+            $this->actualizar();
+        }else {
+            // Creando un nuevo registro
+            $this->guardar();
+        }
+    }
+
+    public function crear() {
 
         // Sanitizar la entrada de los datos 
         $atributos = $this->sanitizarAtributos(); // Para mandar llamar un método dentro de otro método es con this 
@@ -56,6 +66,18 @@ class Propiedad {
         $resultado = self::$db->query($query);
 
         return $resultado;
+    }
+
+    public function actualizar() {
+        // Sanitizar la entrada de los datos 
+        $atributos = $this->sanitizarAtributos();
+
+        $valores = [];
+        foreach($atributos as $key => $value) {
+            $valores[] = "{$key}='{$value}'";
+        }
+
+        debuguear(join(', ', $valores));
     }
 
     // Identificar y unir los atributos de la base de datos 
@@ -81,7 +103,7 @@ class Propiedad {
     // Subida de archivos
     public function setImagen($imagen){
         // Elimina la imagen previa
-        if($this->id) {
+        if(isset($this->id)) {
             // Comprobar si existe el archivo
             $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
             if($existeArchivo) {
