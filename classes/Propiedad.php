@@ -92,6 +92,19 @@ class Propiedad {
         }
     }
 
+    // Eliminar un registro
+    public function eliminar() {
+        //Eliminar la propiedad 
+        $query = "DELETE FROM propiedades WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+        $resultado = self::$db->query($query);
+
+        if($resultado) {
+            $this->borrarImagen();
+            // Redireccionar al usuario
+            header('Location: /admin?resultado=3'); // Esta funcion sirve para redireccionar al usuario, solo sirve si no hay nada de html previo y se recomienda usarlo poco
+        }
+    }
+
     // Identificar y unir los atributos de la base de datos 
     public function atributos() {
         $atributos = [];
@@ -116,17 +129,22 @@ class Propiedad {
     public function setImagen($imagen){
         // Elimina la imagen previa
         if(isset($this->id)) {
-            // Comprobar si existe el archivo
-            $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
-            if($existeArchivo) {
-                // Si existe el archivo se elimina con Unlink
-                unlink(CARPETA_IMAGENES . $this->imagen);
-            }
+            $this->borrarImagen();
         }
 
         // Asignar al atributo de imagen el nombre de la imagen
         if($imagen){
             $this->imagen = $imagen;
+        }
+    }
+
+    // Eliminar archivo
+    public function borrarImagen() {
+        // Comprobar si existe el archivo
+        $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
+        if($existeArchivo) {
+            // Si existe el archivo se elimina con Unlink
+            unlink(CARPETA_IMAGENES . $this->imagen);
         }
     }
 
