@@ -77,7 +77,19 @@ class Propiedad {
             $valores[] = "{$key}='{$value}'";
         }
 
-        debuguear(join(', ', $valores));
+        $query = "UPDATE propiedades SET "; 
+        $query .= join(', ', $valores);
+        $query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";
+        $query .= " LIMIT 1 ";
+
+        // Esto imprime : "UPDATE propiedades SET titulo='Casa hermosa (Actualizado) ', precio='1320000.00', imagen='7436905e8073cfca2000823c1c68b363.jpg', descripcion='Esta descripción si se insertara en la base de datos ya que cumple con todo (Actualizado) ', habitaciones='5', wc='4', estacionamiento='3', creado='', vendedores_id='2' WHERE id = '22'  LIMIT 1 "
+        
+        $resultado = self::$db->query($query);
+
+        if($resultado) {
+            // Redireccionar al usuario
+            header('Location: /admin?resultado=2'); // Esta funcion sirve para redireccionar al usuario, solo sirve si no hay nada de html previo y se recomienda usarlo poco
+        }
     }
 
     // Identificar y unir los atributos de la base de datos 

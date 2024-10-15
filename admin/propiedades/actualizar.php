@@ -47,24 +47,12 @@ require '../../includes/app.php';
             $propiedad->setImagen($nombreImagen);
         }
 
-
         // Revisar que el arreglo de errores este vacio
         if(empty($errores)) { // Empty revisa que un arreglo este vacío
+            // Almacenar la imagen
+            $image->save(CARPETA_IMAGENES . $nombreImagen);
 
             $propiedad->guardar();
-
-            // Insertar en la Base de Datos
-            $query = " UPDATE propiedades SET titulo = '{$titulo}', precio = '{$precio}', imagen = '{$nombreImagen}', descripcion = '{$descripcion}', habitaciones = {$habitaciones}, wc = {$wc}, estacionamiento = {$estacionamiento}, vendedores_id = {$vendedores_id} WHERE id = {$id} ";
-
-            // echo $query;
-
-            $resultado = mysqli_query($db, $query);
-
-            if($resultado) {
-
-                // redireccionar al usuario
-                header('Location: /admin?resultado=2'); // Esta funcion sirve para redireccionar al usuario, solo sirve si no hay nada de html previo y se recomienda usarlo poco
-            }
         }
 
     }
