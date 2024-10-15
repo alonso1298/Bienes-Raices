@@ -29,7 +29,7 @@ class Propiedad {
 
     public function __construct($args = [])
     {
-        $this->id = $args['id'] ?? '';
+        $this->id = $args['id'] ?? null;
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
@@ -42,12 +42,12 @@ class Propiedad {
     }
 
     public function guardar() {
-        if(isset($this->id)) {
+        if(!is_null($this->id)) {
             // Actualizar
             $this->actualizar();
         }else {
             // Creando un nuevo registro
-            $this->guardar();
+            $this->crear();
         }
     }
 
@@ -65,7 +65,12 @@ class Propiedad {
 
         $resultado = self::$db->query($query);
 
-        return $resultado;
+        // Mensaje de exito o error
+        if($resultado) {
+            // redireccionar al usuario
+            header('Location: /admin?resultado=1'); // Esta funcion sirve para redireccionar al usuario, solo sirve si no hay nada de html previo y se recomienda usarlo poco
+            // Para mostrar mensajes en otra pantalla se utiliza el query string con un signo ? seguido de llaves y valores, para registrar mas de un valor es con & y seguido devalor,ejmplo: Location: /admin?mensaje=Registrado Correctamente&registrado=1
+        }
     }
 
     public function actualizar() {
@@ -127,8 +132,9 @@ class Propiedad {
 
     // Subida de archivos
     public function setImagen($imagen){
+
         // Elimina la imagen previa
-        if(isset($this->id)) {
+        if(!is_null($this->id)) {
             $this->borrarImagen();
         }
 
