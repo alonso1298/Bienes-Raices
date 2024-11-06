@@ -2,7 +2,11 @@
             <legend>Información General</legend>
 
             <label for="titulo">Titulo:</label>
-            <input type="text" id="titulo" name="propiedad[titulo]" placeholder="Titulo Propiedad" value="<?php echo s($propiedad->titulo); ?>"> <!--Name permite leer lo que el usuario escriba-->
+            <input type="text" id="titulo" name="propiedad[titulo]" placeholder="Titulo Propiedad" value="<?php
+
+use App\Vendedor;
+
+ echo s($propiedad->titulo); ?>"> <!--Name permite leer lo que el usuario escriba-->
             
             <label for="precio">Precio:</label>
             <input type="number" min="0" id="precio" name="propiedad[precio]" placeholder="Precio Propiedad" value="<?php echo s($propiedad->precio); ?>">
@@ -33,5 +37,13 @@
 
         <fieldset>
             <legend>Vendedor</legend>
+
+            <label for="vendedor">Vendedor</label>
+            <select name="propiedad[vendedores_id]" id="vendedor">
+                <option selected value="">--Seleccione--</option>
+                <?php foreach($vendedores as  $vendedor) { ?>
+                    <option value="<?php echo s($vendedor->id); ?>"> <?php echo s($vendedor->nombre) . " " . s($vendedor->apellido); ?> </option>
+                <?php } ?>
+            </select>
 
         </fieldset>

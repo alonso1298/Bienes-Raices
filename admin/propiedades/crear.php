@@ -3,18 +3,16 @@
     require '../../includes/app.php'; 
 
     use App\Propiedad;
+    use App\Vendedor;
     use Intervention\Image\ImageManagerStatic as Image;
 
     estaAutenticado();
 
-    $db = conectarDB();
-
     // Se crea nueva instancia sin pasarle valores ya que la propiedad por defecto tiene los valores vacios
     $propiedad = new Propiedad;
 
-    //Consultar para obtener los vendedores
-    $consulta = "SELECT * FROM vendedores"; 
-    $resultado = mysqli_query($db, $consulta);
+    // Consulta para obtener todos los vendedores
+    $vendedores = Vendedor::all();
 
     // Arreglo con mensajes de errores
     $errores = Propiedad::getErrores();
