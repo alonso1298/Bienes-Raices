@@ -3,10 +3,7 @@
 
             <label for="titulo">Titulo:</label>
             <input type="text" id="titulo" name="propiedad[titulo]" placeholder="Titulo Propiedad" value="<?php
-
-use App\Vendedor;
-
- echo s($propiedad->titulo); ?>"> <!--Name permite leer lo que el usuario escriba-->
+            echo s($propiedad->titulo); ?>"> <!--Name permite leer lo que el usuario escriba-->
             
             <label for="precio">Precio:</label>
             <input type="number" min="0" id="precio" name="propiedad[precio]" placeholder="Precio Propiedad" value="<?php echo s($propiedad->precio); ?>">
