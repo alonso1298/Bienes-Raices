@@ -15,16 +15,27 @@
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        debuguear($_POST);
         //Se hace de esta manera porque ese id no va a existir hata que se haga el REQUEST_METHOD ya que de lo contrario nos daria un error de undefined
         $id = $_POST['id'];
         $id = filter_var($id, FILTER_VALIDATE_INT);
 
         if($id) {
 
-            $propiedad = Propiedad::find($id);
+            $tipo = $_POST['tipo'];
 
-            $propiedad->eliminar();
+            if(validarTipoContenido($tipo)){
+                
+                // Compara lo que vamos a eliminar
+                if($tipo === 'vendedor') {
+                    $vendedor = Vendedor::find($id);
+                    $vendedor->eliminar();
+                } else if($tipo === 'propiedad') {
+                    $propiedad = Propiedad::find($id);
+                    $propiedad->eliminar();
+                }
+            }
+
+            
         }
     }
 
@@ -64,10 +75,9 @@
                     <td>$<?php echo $propiedad->precio; ?></td>
                     <td>
                         <form method="POST" class="w-100">
-
                             <!--Se crea un input que no se vea que contenga toda la informacion de la propiedad-->
                             <input type="hidden" name="id" value="<?php echo $propiedad->id; ?>">
-
+                            <input type="hidden" name="tipo" value="propiedad">
                             <input type="submit" class="boton-rojo-block" value="Eliminar">
                         </form>
 
@@ -97,7 +107,8 @@
                     <td><?php echo $vendedor->telefono; ?></td>
                     <td>
                         <form method="POST" class="w-100">
-                            <input type="hidden" name="id" value="<?php echo $propiedad->id; ?>">
+                            <input type="hidden" name="id" value="<?php echo $vendedor->id; ?>">
+                            <input type="hidden" name="tipo" value="vendedor">
                             <input type="submit" class="boton-rojo-block" value="Eliminar">
                         </form>
                         <a href="admin/vendedores/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
