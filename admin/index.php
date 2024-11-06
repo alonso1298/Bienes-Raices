@@ -10,7 +10,7 @@ use App\Vendedor;
     $propiedades = Propiedad::all();
     $vendedores = Vendedor::all();
 
-    debuguear($vendedores);
+    debuguear($propiedades);
 
     // Muestra mensaje condicional
     $resultado = $_GET['resultado'] ?? null; // El paceholder ?? null busca el valor $_GET['resultado'] y si no existe le asigna null }

@@ -5,40 +5,15 @@ namespace App;
 class ActiveRecord {
     // Base de datos 
     protected static $db; // Si creamos una propiedad estatico el metodo tiene que se estatico también
-    protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedores_id'];
+    protected static $columnasDB = [];
     protected static $tabla = '';
 
     // Errores
     protected static $errores = [];
-    
-    public $id;
-    public $titulo;
-    public $precio;
-    public $descripcion;
-    public $imagen;
-    public $habitaciones;
-    public $wc;
-    public $estacionamiento;
-    public $creado;
-    public $vendedores_id;
 
     //Definir la conexión a la base de datos
     public static function setDB($database) {
         self::$db = $database; // Accedemos con self a los registros estaticas
-    }
-
-    public function __construct($args = [])
-    {
-        $this->id = $args['id'] ?? null;
-        $this->titulo = $args['titulo'] ?? '';
-        $this->precio = $args['precio'] ?? '';
-        $this->descripcion = $args['descripcion'] ?? '';
-        $this->imagen = $args['imagen'] ?? '';
-        $this->habitaciones = $args['habitaciones'] ?? '';
-        $this->wc = $args['wc'] ?? '';
-        $this->estacionamiento = $args['estacionamiento'] ?? '';
-        $this->creado = date('Y/m/d');
-        $this->vendedores_id = $args['vendedores_id'] ?? 1;
     }
 
     public function guardar() {
@@ -226,7 +201,7 @@ class ActiveRecord {
     }
 
     protected static function crearObjeto($registro) {
-        $objeto = new self;
+        $objeto = new static;
 
         foreach($registro as $key => $value){
             if(property_exists($objeto, $key)) { // property_exists verifica si que propiedad exista ya sea key o titulo
