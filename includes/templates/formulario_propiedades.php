@@ -41,9 +41,11 @@ use App\Vendedor;
             <label for="vendedor">Vendedor</label>
             <select name="propiedad[vendedores_id]" id="vendedor">
                 <option selected value="">--Seleccione--</option>
-                <?php foreach($vendedores as  $vendedor) { ?>
-                    <option value="<?php echo s($vendedor->id); ?>"> <?php echo s($vendedor->nombre) . " " . s($vendedor->apellido); ?> </option>
-                <?php } ?>
+                    <?php foreach($vendedores as  $vendedor) { ?>
+                        <option 
+                        <?php echo $propiedad->vendedores_id === $vendedor->id ? 'selected' : ''; ?>
+                        value="<?php echo s($vendedor->id); ?>"> <?php echo s($vendedor->nombre) . " " . s($vendedor->apellido); ?> </option>
+                    <?php } ?>
             </select>
 
         </fieldset>
