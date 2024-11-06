@@ -4,9 +4,13 @@
     estaAutenticado();
 
     use App\Propiedad;
+use App\Vendedor;
 
     // Implementar un metodo para obtener todas las propiedades
     $propiedades = Propiedad::all();
+    $vendedores = Vendedor::all();
+
+    debuguear($vendedores);
 
     // Muestra mensaje condicional
     $resultado = $_GET['resultado'] ?? null; // El paceholder ?? null busca el valor $_GET['resultado'] y si no existe le asigna null }

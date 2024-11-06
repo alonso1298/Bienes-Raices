@@ -6,6 +6,7 @@ class ActiveRecord {
     // Base de datos 
     protected static $db; // Si creamos una propiedad estatico el metodo tiene que se estatico también
     protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedores_id'];
+    protected static $tabla = '';
 
     // Errores
     protected static $errores = [];
@@ -23,7 +24,7 @@ class ActiveRecord {
 
     //Definir la conexión a la base de datos
     public static function setDB($database) {
-        self::$db = $database; // Accedemos con self a las propiedades estaticas
+        self::$db = $database; // Accedemos con self a los registros estaticas
     }
 
     public function __construct($args = [])
@@ -56,7 +57,7 @@ class ActiveRecord {
         $atributos = $this->sanitizarAtributos(); // Para mandar llamar un método dentro de otro método es con this 
 
         // Insertar en la Base de Datos
-        $query = " INSERT INTO propiedades ( ";
+        $query = " INSERT INTO ". static::$tabla ." ( ";
         $query .= join(', ', array_keys($atributos)); // Join crea un nuevo string a partir de un arreglo toma dos valores el primero es el separador y el segundo el arreglo
         $query .= " ) VALUES (' ";  
         $query .= join("', '", array_values($atributos));
@@ -81,7 +82,7 @@ class ActiveRecord {
             $valores[] = "{$key}='{$value}'";
         }
 
-        $query = "UPDATE propiedades SET "; 
+        $query = "UPDATE ". static::$tabla ." SET "; 
         $query .= join(', ', $valores);
         $query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";
         $query .= " LIMIT 1 ";
@@ -98,8 +99,8 @@ class ActiveRecord {
 
     // Eliminar un registro
     public function eliminar() {
-        //Eliminar la propiedad 
-        $query = "DELETE FROM propiedades WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+        //Eliminar el registro 
+        $query = "DELETE FROM ". static::$tabla ." WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
         $resultado = self::$db->query($query);
 
         if($resultado) {
@@ -191,7 +192,7 @@ class ActiveRecord {
 
     // Lista todos los registros
     public static function all() {
-        $query = "SELECT * FROM propiedades";
+        $query = "SELECT * FROM " . static::$tabla; // static hereda el método y busca el atributo en la clase que se esta heredando 
 
         $resultado = self::consultarSQL($query);
 
@@ -200,7 +201,7 @@ class ActiveRecord {
  
     // Busca un registro por su ID
     public static function find($id) {
-        $query = "SELECT * FROM propiedades WHERE id = {$id}";
+        $query = "SELECT * FROM ". static::$tabla ." WHERE id = {$id}";
 
         $resultado = self::consultarSQL($query);
 
