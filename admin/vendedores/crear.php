@@ -13,6 +13,17 @@ $errores = Vendedor::getErrores();
 
 // Ejecutar el código después que el usuario envia el formulario 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    // Crear una nueva instancia 
+    $vendedor = new Vendedor($_POST['vendedor']);
+
+    // Validar que no haya campos vacios
+    $errores = $vendedor->validar();
+
+    // No hay errores
+    if(empty($errores)) {
+        $vendedor->guardar();
+    }
 }
 
 
