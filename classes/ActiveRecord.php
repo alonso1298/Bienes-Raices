@@ -147,6 +147,15 @@ class ActiveRecord {
 
         return $resultado;
     }
+
+    // Obtiene determinado numero de registros 
+    public static function get($cantidad) {
+        $query = "SELECT * FROM " . static::$tabla . " LIMIT " . $cantidad; // static hereda el método y busca el atributo en la clase que se esta heredando 
+
+        $resultado = self::consultarSQL($query);
+
+        return $resultado;
+    }
  
     // Busca un registro por su ID
     public static function find($id) {
