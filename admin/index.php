@@ -3,6 +3,7 @@
     require '../includes/app.php'; 
     estaAutenticado();
 
+    // Importar las clases
     use App\Propiedad;
     use App\Vendedor;
 
@@ -15,6 +16,7 @@
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+        // Validar id
         //Se hace de esta manera porque ese id no va a existir hata que se haga el REQUEST_METHOD ya que de lo contrario nos daria un error de undefined
         $id = $_POST['id'];
         $id = filter_var($id, FILTER_VALIDATE_INT);
@@ -22,7 +24,6 @@
         if($id) {
 
             $tipo = $_POST['tipo'];
-
             if(validarTipoContenido($tipo)){
                 
                 // Compara lo que vamos a eliminar
@@ -34,8 +35,6 @@
                     $propiedad->eliminar();
                 }
             }
-
-            
         }
     }
 
@@ -45,13 +44,14 @@
 
     <main class="contenedor seccion">
         <h1>Administrador de Bienes Raices</h1>
-        <?php if( intval($resultado) === 1): ?>
-            <p class="alerta exito">Creado Correctamente</p>
-        <?php elseif( intval($resultado) === 2): ?>
-            <p class="alerta exito">Actualizado Correctamente</p>
-        <?php elseif( intval($resultado) === 3): ?>
-            <p class="alerta exito">Eliminado Correctamente</p>
-        <?php endif; ?>   
+
+        <?php
+            $mensaje = mostrarNotificacion( intval($resultado) ); // intval lo convierte en entero
+            if($mensaje) { ?>
+                <p class="alerta exito"><?php echo s($mensaje) ?></p>
+            <?php } 
+        ?>
+
         <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
         <a href="/admin/vendedores/crear.php" class="boton boton-amarillo">Nuevo(a) Vendedor</a>
 
