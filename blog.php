@@ -37,7 +37,7 @@
 
             <div class="texto-entrada">
                 <a href="entrada.php">
-                    <h4>Gia para la decoracion de tu hogar</h4>
+                    <h4>Guia para la decoracion de tu hogar</h4>
                     <p>Escrito el: <span>20/02/2024</span> por: <span>Admin</span> </p>
 
                     <p>
@@ -57,7 +57,7 @@
 
             <div class="texto-entrada">
                 <a href="entrada.php">
-                    <h4>Gia para la decoracion de tu hogar</h4>
+                    <h4>Guia para la decoracion de tu hogar</h4>
                     <p>Escrito el: <span>20/02/2024</span> por: <span>Admin</span> </p>
 
                     <p>
@@ -77,7 +77,7 @@
 
             <div class="texto-entrada">
                 <a href="entrada.php">
-                    <h4>Gia para la decoracion de tu hogar</h4>
+                    <h4>Guia para la decoracion de tu hogar</h4>
                     <p>Escrito el: <span>20/02/2024</span> por: <span>Admin</span> </p>
 
                     <p>
