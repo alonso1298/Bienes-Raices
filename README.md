@@ -97,6 +97,9 @@ Bienes-Raices/
 6. Iniciar el servidor local:
 
 - Utilizar un servidor local como XAMPP, WAMP o MAMP para servir el proyecto.
+    ```
+    php -S localhos:3000
+    ```
 
 - Asegurarse de que el servidor esté apuntando al directorio del proyecto.​
 
