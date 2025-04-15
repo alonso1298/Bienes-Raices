@@ -1,67 +1,48 @@
-## 🏡 Bienes Raíces
+# 🏡 Bienes Raíces
 Este proyecto es una aplicación web completa para la gestión de propiedades inmobiliarias. Implementa un sistema CRUD (Crear, Leer, Actualizar, Eliminar) utilizando Programación Orientada a Objetos (POO) en PHP y una base de datos MySQL en el backend. El frontend está desarrollado con HTML, CSS y JavaScript, proporcionando una interfaz interactiva y responsiva para los usuarios.​
 GitHub
 
-*** Pagina priincipal ***
 ![Imagen de la pagina principal](https://github.com/alonso1298/Bienes-Raices/blob/72f098f38620ec5b49e299a51ac35f10ebe859af/src/img/HomeBienesRaices.png)
 
-*** Login ***
-![Imagen la pagina de inicio de sesión](https://github.com/alonso1298/Bienes-Raices/blob/72f098f38620ec5b49e299a51ac35f10ebe859af/src/img/Login.png)
 
-*** Panel de administración ***
-![Imagen la pagina de administracion](https://github.com/alonso1298/Bienes-Raices/blob/72f098f38620ec5b49e299a51ac35f10ebe859af/src/img/Login.png)
+## 🚀 Características Principales
+- Gestión de Propiedades: Permite crear, visualizar, actualizar y eliminar propiedades desde un panel administrativo.
 
-🚀 Características Principales
-Gestión de Propiedades: Permite crear, visualizar, actualizar y eliminar propiedades desde un panel administrativo.
+- Autenticación de Usuarios: Sistema de login y logout para proteger las secciones administrativas.
 
-Autenticación de Usuarios: Sistema de login y logout para proteger las secciones administrativas.
+- Carga de Imágenes: Funcionalidad para subir y gestionar imágenes de las propiedades.
 
-Carga de Imágenes: Funcionalidad para subir y gestionar imágenes de las propiedades.
+- Formulario de Contacto: Los usuarios pueden enviar consultas a través de un formulario de contacto.
 
-Formulario de Contacto: Los usuarios pueden enviar consultas a través de un formulario de contacto.
+- Blog Informativo: Sección de blog para publicar artículos relacionados con bienes raíces.
 
-Blog Informativo: Sección de blog para publicar artículos relacionados con bienes raíces.
+- Diseño Responsivo: Adaptado para una experiencia óptima en dispositivos móviles y de escritorio.​
 
-Diseño Responsivo: Adaptado para una experiencia óptima en dispositivos móviles y de escritorio.​
-GitHub
-+5
-GitHub
-+5
-GitHub
-+5
 
-🛠️ Tecnologías Utilizadas
-Frontend:
+## 🛠️ Tecnologías Utilizadas
+- Frontend:
 
-HTML5
+    - HTML5
 
-CSS3
+    - CSS3
 
-JavaScript
+    - JavaScript
 
-Backend:
+- Backend:
 
-PHP con Programación Orientada a Objetos (POO)
+    - PHP con Programación Orientada a Objetos (POO)
 
-MySQL para la gestión de la base de datos
+    - MySQL para la gestión de la base de datos
 
-Herramientas de Desarrollo:
+- Herramientas de Desarrollo:
 
-Composer para la gestión de dependencias
+    - Composer para la gestión de dependencias
 
-Gulp para la automatización de tareas​
-GitHub
-+7
-GitHub
-+7
-GitHub
-+7
+    - Gulp para la automatización de tareas​
 
-📁 Estructura del Proyecto
-graphql
-Copiar
-Editar
+# 📁 Estructura del Proyecto
 
+```graphql
 Bienes-Raices/
 ├── admin/                 # Panel administrativo
 ├── build/                 # Archivos compilados
@@ -80,48 +61,53 @@ Bienes-Raices/
 ├── composer.json          # Configuración de Composer
 ├── package.json           # Configuración de Node.js
 └── README.md              # Documentación del proyecto
-🔧 Instalación y Configuración
-Clonar el repositorio:
+```
 
-bash
-Copiar
-Editar
-git clone https://github.com/alonso1298/Bienes-Raices.git
-cd Bienes-Raices
-Instalar dependencias de PHP:
+## 🔧 Instalación y Configuración
+1. Clonar el repositorio:
 
-bash
-Copiar
-Editar
-composer install
-Instalar dependencias de Node.js:
+    ```bash
+    git clone https://github.com/alonso1298/Bienes-Raices.git
+    cd Bienes-Raices
+    ```
 
-bash
-Copiar
-Editar
-npm install
-Configurar la base de datos:
+2. Instalar dependencias de PHP:
 
-Crear una base de datos en MySQL.
+    ``` 
+    composer install
+    ```
+3. Instalar dependencias de Node.js:
 
-Importar el archivo bienes_raices.sql (si está disponible) para crear las tablas necesarias.
+    ```bash
+    npm install
+    ```
+4. Configurar la base de datos:
 
-Actualizar las credenciales de la base de datos en el archivo de configuración correspondiente.​
+- Crear una base de datos en MySQL.
 
-Compilar archivos SCSS y JS:
+- Importar el archivo bienes_raices.sql (si está disponible) para crear las tablas necesarias.
 
-bash
-Copiar
-Editar
-gulp
-Iniciar el servidor local:
+- Actualizar las credenciales de la base de datos en el archivo de configuración correspondiente.​
 
-Utilizar un servidor local como XAMPP, WAMP o MAMP para servir el proyecto.
+5. Compilar archivos SCSS y JS:
 
-Asegurarse de que el servidor esté apuntando al directorio del proyecto.​
+    ``` bash
+    gulp
+    ```
+6. Iniciar el servidor local:
 
-📸 Capturas de Pantalla
-Nota: Agrega aquí capturas de pantalla de las diferentes secciones de la aplicación para ilustrar su funcionamiento.
+- Utilizar un servidor local como XAMPP, WAMP o MAMP para servir el proyecto.
 
-📄 Licencia
+- Asegurarse de que el servidor esté apuntando al directorio del proyecto.​
+
+## 📸 Capturas de Pantalla
+** Login **
+
+![Imagen la pagina de inicio de sesión](https://github.com/alonso1298/Bienes-Raices/blob/72f098f38620ec5b49e299a51ac35f10ebe859af/src/img/Login.png)
+
+** Panel de administración ***
+
+![Imagen la pagina de administracion](https://github.com/alonso1298/Bienes-Raices/blob/2ba646fc31f408aa5c9fd080e6550320ae48ac76/src/img/Administrador.png)
+
+## 📄 Licencia
 Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
