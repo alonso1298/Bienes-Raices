@@ -2,7 +2,14 @@
 Este proyecto es una aplicación web completa para la gestión de propiedades inmobiliarias. Implementa un sistema CRUD (Crear, Leer, Actualizar, Eliminar) utilizando Programación Orientada a Objetos (POO) en PHP y una base de datos MySQL en el backend. El frontend está desarrollado con HTML, CSS y JavaScript, proporcionando una interfaz interactiva y responsiva para los usuarios.​
 GitHub
 
+*** Pagina priincipal ***
+![Imagen de la pagina principal](https://github.com/alonso1298/Bienes-Raices/blob/72f098f38620ec5b49e299a51ac35f10ebe859af/src/img/HomeBienesRaices.png)
 
+*** Login ***
+![Imagen la pagina de inicio de sesión](https://github.com/alonso1298/Bienes-Raices/blob/72f098f38620ec5b49e299a51ac35f10ebe859af/src/img/Login.png)
+
+*** Panel de administración ***
+![Imagen la pagina de administracion](https://github.com/alonso1298/Bienes-Raices/blob/72f098f38620ec5b49e299a51ac35f10ebe859af/src/img/Login.png)
 
 🚀 Características Principales
 Gestión de Propiedades: Permite crear, visualizar, actualizar y eliminar propiedades desde un panel administrativo.
