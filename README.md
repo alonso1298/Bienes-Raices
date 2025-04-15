@@ -101,11 +101,11 @@ Bienes-Raices/
 - Asegurarse de que el servidor esté apuntando al directorio del proyecto.​
 
 ## 📸 Capturas de Pantalla
-** Login **
+### Login
 
 ![Imagen la pagina de inicio de sesión](https://github.com/alonso1298/Bienes-Raices/blob/72f098f38620ec5b49e299a51ac35f10ebe859af/src/img/Login.png)
 
-** Panel de administración ***
+### Panel de administración
 
 ![Imagen la pagina de administracion](https://github.com/alonso1298/Bienes-Raices/blob/2ba646fc31f408aa5c9fd080e6550320ae48ac76/src/img/Administrador.png)
 
