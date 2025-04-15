@@ -71,9 +71,9 @@
 
         <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data"> <!-- enctype="multipart/form-data" Especifica cómo los datos del formulario deben ser codificados antes de ser enviados al servidor-->
 
-        <?php include '../../includes/templates/formulario_propiedades.php' ?>
+            <?php include '../../includes/templates/formulario_propiedades.php' ?>
 
-        <input type="submit" value="Crear Popiedad" class="boton boton-verde">
+            <input type="submit" value="Crear Popiedad" class="boton boton-verde">
 
         </form>
     </main>
